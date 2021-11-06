@@ -1,11 +1,18 @@
 package com.alura.learning_spring.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import com.alura.learning_spring.model.Pedido;
 
 public class RequisicaoNovoPedido {
 	
+	@NotBlank
 	private String nomeProduto;
+	
+	@NotBlank
 	private String urlProduto;
+	
+	@NotBlank
 	private String urlImagem;
 	private String descricao;
 	
