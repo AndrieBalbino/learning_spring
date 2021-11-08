@@ -3,6 +3,7 @@ package com.alura.learning_spring.dto;
 import javax.validation.constraints.NotBlank;
 
 import com.alura.learning_spring.model.Pedido;
+import com.alura.learning_spring.model.StatusPedido;
 
 public class RequisicaoNovoPedido {
 	
@@ -47,6 +48,7 @@ public class RequisicaoNovoPedido {
 		pedido.setUrlImagem(this.urlImagem);
 		pedido.setUrlProduto(this.urlProduto);
 		pedido.setNomeProduto(this.nomeProduto);
+		pedido.setStatus(StatusPedido.AGUARDANDO);
 		
 		return pedido;
 	}
