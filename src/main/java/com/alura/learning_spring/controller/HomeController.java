@@ -1,14 +1,13 @@
 package com.alura.learning_spring.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alura.learning_spring.model.Pedido;
@@ -24,7 +23,10 @@ public class HomeController {
 	
 	@GetMapping
 	public String home(Model model) {	
-		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE);
+		Sort sort = Sort.by("dataEntrega").descending();
+		PageRequest page = PageRequest.of(0, 10, sort);
+		
+		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, page);
 		model.addAttribute("pedidos", pedidos);
 		return "home";
 	}
