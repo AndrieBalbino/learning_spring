@@ -2,7 +2,12 @@ package com.alura.learning_spring.api;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +23,8 @@ public class OfertasRest {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
-	public Oferta criarOferta(RequisicaoNovaOferta requisicao) {
+	@PostMapping
+	public ResponseEntity<Oferta> criarOferta(@Valid @RequestBody RequisicaoNovaOferta requisicao) {
 		Optional<Pedido> pedidoBuscado = pedidoRepository.findById(requisicao.getPedidoId());
 		
 		if(!pedidoBuscado.isPresent()) {
@@ -31,6 +37,6 @@ public class OfertasRest {
 		pedido.getOfertas().add(novaOferta);
 		
 		pedidoRepository.save(pedido);
-		return novaOferta;
+		return ResponseEntity.ok().body(novaOferta);
 	}
 }
